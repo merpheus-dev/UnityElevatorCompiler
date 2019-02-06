@@ -5,7 +5,7 @@ using System.Threading;
 using System.Media;
 using System;
 
-public class NativePlayer : IPlayer
+public class NativePlayer : AbstractPlayer, IPlayer
 {
     private Thread _thread;
     public void Play()
@@ -30,4 +30,8 @@ public class NativePlayer : IPlayer
     {
     }
 
+    public override void CleanUp()
+    {
+        
+    }
 }

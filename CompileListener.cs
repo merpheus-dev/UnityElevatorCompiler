@@ -7,6 +7,8 @@ using System;
 using System.Reflection;
 using System.Media;
 using System.Threading;
+using UnityEditor.Callbacks;
+
 namespace ElevatorCompiler
 {
     public class CompileListener : EditorWindow
@@ -37,12 +39,6 @@ namespace ElevatorCompiler
         {
             TriggerSoundPlay();
         }
-
-
-        private static void CompilationPipeline_assemblyCompilationFinished(string arg1, CompilerMessage[] arg2)
-        {
-            TriggerCompileFinished();
-        }
         #endregion
 
         private static void TriggerSoundPlay()
@@ -50,6 +46,8 @@ namespace ElevatorCompiler
             PlayerFactory.GetPlayer().Play();
         }
 
+
+        [DidReloadScripts]
         public static void TriggerCompileFinished()
         {
             PlayerFactory.GetPlayer().CompileFinished();
@@ -95,7 +93,6 @@ namespace ElevatorCompiler
             if (_useWaitMusic)
             {
                 CompilationPipeline.assemblyCompilationStarted += CompilationPipeline_assemblyCompilationStarted;
-                CompilationPipeline.assemblyCompilationFinished += CompilationPipeline_assemblyCompilationFinished;
                 Lightmapping.started += Lightmapping_started;
             }
             else
