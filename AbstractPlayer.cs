@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public abstract class AbstractPlayer
+namespace ElevatorCompiler
 {
-    public abstract void CleanUp();
-
-    internal float scheduledTime;
-
-    internal void EditorUpdateTick()
+    public abstract class AbstractPlayer
     {
-        if (EditorApplication.timeSinceStartup >= scheduledTime)
-            CleanUp();
+        public abstract void CleanUp();
+
+        internal float scheduledTime;
+
+        internal void EditorUpdateTick()
+        {
+            if (EditorApplication.timeSinceStartup >= scheduledTime)
+                CleanUp();
+        }
     }
+
 }

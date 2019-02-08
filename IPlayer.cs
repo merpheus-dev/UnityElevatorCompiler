@@ -1,5 +1,8 @@
-﻿public interface IPlayer
+﻿namespace ElevatorCompiler
 {
-    void Play();
-    void CompileFinished();
+    public interface IPlayer
+    {
+        void Play();
+        void CompileFinished();
+    } 
 }

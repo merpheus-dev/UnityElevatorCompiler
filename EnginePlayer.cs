@@ -5,43 +5,46 @@ using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
-public class EnginePlayer : AbstractPlayer, IPlayer
+namespace ElevatorCompiler
 {
-    private AudioSource _audioSource
+    public class EnginePlayer : AbstractPlayer, IPlayer
     {
-        get
+        private AudioSource _audioSource
         {
-            if (GameObject.Find("tempPlay"))
-                return GameObject.Find("tempPlay").GetComponent<AudioSource>();
-            else
-                return new GameObject("tempPlay").AddComponent<AudioSource>();
+            get
+            {
+                if (GameObject.Find("tempPlay"))
+                    return GameObject.Find("tempPlay").GetComponent<AudioSource>();
+                else
+                    return new GameObject("tempPlay").AddComponent<AudioSource>();
+            }
+        }
+        private Scene scene;
+        public void Play()
+        {
+            if (_audioSource.isPlaying)
+                return;
+            _audioSource.clip = SoundLibrary.GetSoundClip();
+            _audioSource.loop = true;
+            _audioSource.Play();
+        }
+
+        public void CompileFinished()
+        {
+            _audioSource.Stop();
+            AudioClip clip = Resources.Load<AudioClip>("Elevator/ding");
+            _audioSource.PlayOneShot(clip);
+            EditorApplication.update -= EditorUpdateTick;
+            scheduledTime = (float)EditorApplication.timeSinceStartup + clip.length;
+            EditorApplication.update += EditorUpdateTick;
+        }
+
+        public override void CleanUp()
+        {
+            MonoBehaviour.DestroyImmediate(_audioSource.gameObject);
+            EditorApplication.update -= EditorUpdateTick;
+            scheduledTime = 0f;
         }
     }
-    private Scene scene;
-    public void Play()
-    {
-        if (_audioSource.isPlaying)
-            return;
-        AudioClip clip = Resources.Load<AudioClip>("elevator");
-        _audioSource.clip = clip;
-        _audioSource.loop = true;
-        _audioSource.Play();
-    }
 
-    public void CompileFinished()
-    {
-        _audioSource.Stop();
-        AudioClip clip = Resources.Load<AudioClip>("ding");
-        _audioSource.PlayOneShot(clip);
-        EditorApplication.update -= EditorUpdateTick;
-        scheduledTime = (float)EditorApplication.timeSinceStartup + clip.length;
-        EditorApplication.update += EditorUpdateTick;
-    }
-
-    public override void CleanUp()
-    {
-        MonoBehaviour.DestroyImmediate(_audioSource.gameObject);
-        EditorApplication.update -= EditorUpdateTick;
-        scheduledTime = 0f;
-    }
 }

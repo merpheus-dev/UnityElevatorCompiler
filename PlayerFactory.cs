@@ -10,7 +10,7 @@ namespace ElevatorCompiler
         public static IPlayer GetPlayer()
         {
             if (!EditorPrefs.HasKey(PlayMethodKey))
-                EditorPrefs.SetInt(PlayMethodKey, 0);
+                EditorPrefs.SetInt(PlayMethodKey, 1);
 
             if (EditorPrefs.GetInt(PlayMethodKey) == 1)
                 return new EnginePlayer();
