@@ -1,4 +1,4 @@
-# UnityElevatorCompiler
+# Elevator Compiler
 A plugin that plays elevator music while Unity compiles your code.
 
 ## Installation
