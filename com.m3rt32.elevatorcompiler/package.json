@@ -1,0 +1,15 @@
+{
+    "name": "com.m3rt32.elevatorcompiler",
+    "displayName": "Elevator Compiler",
+    "version": "1.2.1",
+    "unity": "2018.1",
+    "description": "A plugin that plays elevator music while Unity compiles your code.",
+    "keywords": [
+        "unity",
+		"editor",
+		"csharp",
+		"compile",
+		"elevator"
+    ],
+    "category": "Productivity"
+}

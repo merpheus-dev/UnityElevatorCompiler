@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,6 @@ using System.Threading;
 using UnityEditor.Callbacks;
 using UnityEditorInternal;
 using System.Linq;
-using NUnit.Framework;
 namespace ElevatorCompiler
 {
     public class CompileListener : EditorWindow
@@ -184,3 +184,4 @@ namespace ElevatorCompiler
     }
 
 }
+#endif

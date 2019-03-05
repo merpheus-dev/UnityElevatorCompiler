@@ -10,6 +10,8 @@ namespace ElevatorCompiler
         private static List<AudioClip> soundClips;
         private static string[] soundNames;
         public const string SoundBankLocation = "Assets/Editor/Resources/Elevator/Playlist";
+        public const string SoundBankLocation_PM = "Packages/com.m3rt32.elevatorcompiler/Editor/Resources/Elevator/Playlist";
+        private static bool packageType = false;
         static SoundLibrary()
         {
             //For Editor mode
@@ -21,9 +23,11 @@ namespace ElevatorCompiler
 
             //For native mode
             if (!Directory.Exists(string.Format("{0}/{1}", System.Environment.CurrentDirectory, SoundBankLocation)))
-                throw new System.NullReferenceException("PlayList folder not found!", new System.Exception("Please make sure you have" + SoundBankLocation));
+                packageType = true;
+            if (packageType && !Directory.Exists(string.Format("{0}/{1}", System.Environment.CurrentDirectory, SoundBankLocation_PM)))
+                throw new System.NullReferenceException("PlayList folder not found!", new System.Exception("If you are not using Elevator Compiler via Package Manager, please make sure you have" + SoundBankLocation));
 
-            soundNames = Directory.GetFiles(SoundBankLocation, "*.wav");
+            soundNames = Directory.GetFiles(packageType ? SoundBankLocation_PM : SoundBankLocation, "*.wav");
             if (soundNames.Length == 0)
                 throw new System.NullReferenceException("No sound file detected for Elevator Compiler");
         }
