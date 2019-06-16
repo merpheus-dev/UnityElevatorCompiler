@@ -92,17 +92,21 @@ namespace ElevatorCompiler
             if (ElevatorSettings.UseWaitMusic)
             {
                 CompilationPipeline.assemblyCompilationStarted += CompilationPipeline_assemblyCompilationStarted;
+#if UNITY_2018_1_OR_NEWER
                 if (ElevatorSettings.PlayOnLightMapping)
                 {
                     Lightmapping.started += Lightmapping_started;
                     Lightmapping.completed += DidCompileFinished;
                 }
+#endif
             }
             else
             {
                 CompilationPipeline.assemblyCompilationStarted -= CompilationPipeline_assemblyCompilationStarted;
+#if UNITY_2018_1_OR_NEWER
                 Lightmapping.started -= Lightmapping_started;
                 Lightmapping.completed -= DidCompileFinished;
+#endif
             }
 
         }
